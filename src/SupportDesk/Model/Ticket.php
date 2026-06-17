@@ -9,6 +9,7 @@ final readonly class Ticket
         public string $title,
         public string $customerEmail,
         public TicketStatus $status,
+        public string $description = '',
     ) {}
 
     public function toArray(): array
@@ -18,6 +19,7 @@ final readonly class Ticket
             'title' => $this->title,
             'customer_email' => $this->customerEmail,
             'status' => $this->status->value,
+            'description' => $this->description,
         ];
     }
 }

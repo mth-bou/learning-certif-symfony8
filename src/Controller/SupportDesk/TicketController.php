@@ -2,8 +2,11 @@
 
 namespace App\Controller\SupportDesk;
 
+use App\Form\SupportDesk\CreateTicketType;
+use App\SupportDesk\Application\Ticket\CreateTicketInput;
 use App\SupportDesk\Application\Ticket\TicketProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -13,8 +16,34 @@ final class TicketController extends AbstractController
     #[Route(path: '', name: 'index', methods: ['GET'])]
     public function index(TicketProvider $provider): Response
     {
-        return $this->render('index.html.twig', [
+        return $this->render('support/ticket/index.html.twig', [
             'tickets' => $provider->all()
+        ]);
+    }
+
+    #[Route(path: '/new', name: 'new', methods: ['GET', 'POST'])]
+    public function new(Request $request, TicketProvider $provider): Response
+    {
+        $input = new CreateTicketInput();
+
+        $form = $this->createForm(CreateTicketType::class, $input);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ticket = $provider->add($input);
+
+            $this->addFlash('success', sprintf(
+                'Le ticket %s a été créé.',
+                $ticket->reference,
+            ));
+
+            $this->redirectToRoute('support_ticket_show', [
+                'reference' => $ticket->reference,
+            ]);
+        }
+
+        return $this->render('support/ticket/new.html.twig', [
+            'form' => $form,
         ]);
     }
 
@@ -30,7 +59,7 @@ final class TicketController extends AbstractController
             ));
         }
 
-        return $this->render('show.html.twig', [
+        return $this->render('support/ticket/show.html.twig', [
             'ticket' => $ticket,
         ]);
     }

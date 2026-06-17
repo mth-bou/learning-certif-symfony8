@@ -8,6 +8,12 @@
     <h1>Tickets support</h1>
 
     <p>
+        <a href="{{ path('support_ticket_new') }}">
+            Créer un ticket
+        </a>
+    </p>
+
+    <p>
         Nombre de tickets : {{ tickets|length }}
     </p>
 
@@ -25,7 +31,6 @@
         <tbody>
         {% for ticket in tickets %}
             <tr>
-                {# @var ticket App\SupportDesk\Model\Ticket #}
                 <td>{{ ticket.reference }}</td>
                 <td>{{ ticket.title }}</td>
                 <td>{{ ticket.customerEmail }}</td>

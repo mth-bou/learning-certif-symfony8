@@ -1,0 +1,24 @@
+{# templates/support/ticket/new.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un ticket - SupportDesk{% endblock %}
+
+{% block body %}
+    <p>
+        <a href="{{ path('support_ticket_index') }}">
+            <- Retour aux tickets
+        </a>
+    </p>
+
+    <div class="card">
+        <h1>Créer un ticket</h1>
+
+        {{ form_start(form, { 'attr': { 'novalidate': 'novalidate' }}) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.customerEmail) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.submit) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

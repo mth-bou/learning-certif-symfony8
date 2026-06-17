@@ -75,6 +75,12 @@
 </header>
 
 <main>
+    {% for message in app.flashes('success') %}
+        <div class="card" style="border-color: #16a34a;">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {% block body %}{% endblock %}
 </main>
 </body>
