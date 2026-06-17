@@ -1,0 +1,30 @@
+{# templates/support/ticket/show.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ ticket.reference }} - SupportDesk{% endblock %}
+
+{% block body %}
+    <p>
+        <a href="{{ path('support_ticket_index') }}">
+            <- Retour aux tickets
+        </a>
+    </p>
+
+    <article class="card">
+        <h1>{{ ticket.reference }}</h1>
+
+        <dl>
+            <dt>Titre</dt>
+            <dd>{{ ticket.title }}</dd>
+
+            <dt>Email client</dt>
+            <dd>{{ ticket.customerEmail }}</dd>
+
+            <dt>Statut</dt>
+            <dd>
+                <span class="badge">{{ ticket.status.value }}</span>
+            </dd>
+        </dl>
+    </article>
+{% endblock %}

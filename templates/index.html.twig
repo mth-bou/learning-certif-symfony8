@@ -1,0 +1,48 @@
+{# templates/support/ticket/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Tickets - SupportDesk{% endblock %}
+
+{% block body %}
+    <h1>Tickets support</h1>
+
+    <p>
+        Nombre de tickets : {{ tickets|length }}
+    </p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Référence</th>
+            <th>Titre</th>
+            <th>Client</th>
+            <th>Statut</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for ticket in tickets %}
+            <tr>
+                {# @var ticket App\SupportDesk\Model\Ticket #}
+                <td>{{ ticket.reference }}</td>
+                <td>{{ ticket.title }}</td>
+                <td>{{ ticket.customerEmail }}</td>
+                <td>
+                    <span class="badge">{{ ticket.status.value }}</span>
+                </td>
+                <td>
+                    <a href="{{ path('support_ticket_show', { reference: ticket.reference }) }}">
+                        Voir
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun ticket pour le moment.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
