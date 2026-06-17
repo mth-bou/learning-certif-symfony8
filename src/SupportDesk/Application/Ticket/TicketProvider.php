@@ -45,6 +45,7 @@ final readonly class TicketProvider
             customerEmail: $input->customerEmail,
             status: TicketStatus::Open,
             description: $input->description,
+            relatedTicketReference: $input->relatedTicket?->reference,
         );
 
         $session = $this->requestStack->getSession();
@@ -99,6 +100,7 @@ final readonly class TicketProvider
                 customerEmail: $data['customer_email'],
                 status: TicketStatus::from($data['status']),
                 description: $data['description'] ?? '',
+                relatedTicketReference: $data['related_ticket_reference'] ?? null,
             ),
             $session->get(self::SESSION_KEY, []),
         );

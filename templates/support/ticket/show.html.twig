@@ -28,6 +28,17 @@
 
             <dt>Description</dt>
             <dd>{{ ticket.description }}</dd>
+
+            <dt>Ticket lié</dt>
+            <dd>
+                {% if ticket.relatedTicketReference %}
+                    <a href="{{ path('support_ticket_show', { reference: ticket.relatedTicketReference }) }}">
+                        {{ ticket.relatedTicketReference }}
+                    </a>
+                {% else %}
+                    Aucun
+                {% endif %}
+            </dd>
         </dl>
     </article>
 {% endblock %}

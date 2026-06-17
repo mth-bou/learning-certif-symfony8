@@ -2,6 +2,7 @@
 
 namespace App\Form\SupportDesk;
 
+use App\Form\SupportDesk\DataTransformer\TicketToReferenceTransformer;
 use App\SupportDesk\Application\Ticket\CreateTicketInput;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -13,6 +14,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class CreateTicketType extends AbstractType
 {
+    public function __construct(
+        private readonly TicketToReferenceTransformer $ticketToReferenceTransformer,
+    ) {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -28,9 +34,19 @@ final class CreateTicketType extends AbstractType
                     'rows' => 8,
                 ]
             ])
+            ->add('relatedTicket', TextType::class, [
+                'label' => 'Ticket lié',
+                'required' => false,
+                'help' => 'Exemple : TCK-0001',
+                'invalid_message' => 'Aucun ticket ne correspond à cette référence.',
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Créer le ticket',
             ]);
+
+        $builder
+            ->get('relatedTicket')
+            ->addModelTransformer($this->ticketToReferenceTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

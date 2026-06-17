@@ -2,6 +2,7 @@
 
 namespace App\SupportDesk\Application\Ticket;
 
+use App\SupportDesk\Model\Ticket;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class CreateTicketInput
@@ -27,4 +28,6 @@ final class CreateTicketInput
         maxMessage: 'La description ne peut dépasser {{ limit }} caractères.'
     )]
     public ?string $description = null;
+
+    public ?Ticket $relatedTicket = null;
 }
