@@ -18,6 +18,12 @@
             {{ form_row(form.title) }}
             {{ form_row(form.customerEmail) }}
             {{ form_row(form.description) }}
+            {{ form_row(form.priority) }}
+
+            {% if form.escalationReason is defined %}
+                {{ form_row(form.escalationReason) }}
+            {% endif %}
+
             {{ form_row(form.relatedTicket) }}
             {{ form_row(form.submit) }}
         {{ form_end(form) }}

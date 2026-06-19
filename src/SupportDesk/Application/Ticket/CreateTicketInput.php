@@ -3,6 +3,7 @@
 namespace App\SupportDesk\Application\Ticket;
 
 use App\SupportDesk\Model\Ticket;
+use App\SupportDesk\Model\TicketPriority;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class CreateTicketInput
@@ -30,4 +31,9 @@ final class CreateTicketInput
     public ?string $description = null;
 
     public ?Ticket $relatedTicket = null;
+
+    #[Assert\NotNull(message: 'La priorité est obligatoire.')]
+    public ?TicketPriority $priority = TicketPriority::Normal;
+
+    public ?string $escalationReason = null;
 }

@@ -37,7 +37,7 @@ final class TicketController extends AbstractController
                 $ticket->reference,
             ));
 
-            $this->redirectToRoute('support_ticket_show', [
+            return $this->redirectToRoute('support_ticket_show', [
                 'reference' => $ticket->reference,
             ]);
         }
