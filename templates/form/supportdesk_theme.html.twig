@@ -1,0 +1,114 @@
+{# templates/form/supportdesk_theme.html.twig #}
+
+{% use 'form_div_layout.html.twig' %}
+
+{#
+Le bloc form_row du thème Symfony prépare notamment :
+- aria-invalid
+- aria-describedby
+- widget_attr
+
+Nous remplaçons seulement son rendu final afin de conserver
+ce traitement.
+#}
+{% block form_row_render %}
+    {% set row_class = errors|length > 0
+        ? 'form-field form-field--invalid'
+        : 'form-field'
+    %}
+
+    {% set row_attr = row_attr|merge({
+        class: (row_attr.class|default('') ~ ' ' ~ row_class)|trim
+    }) %}
+
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{ form_label(form) }}
+        {{ form_widget(form, widget_attr) }}
+        {{ form_help(form) }}
+        {{ form_errors(form) }}
+    </div>
+{% endblock %}
+
+{% block form_label %}
+    {% set label_attr = label_attr|merge({
+        class: (label_attr.class|default('') ~ ' form-label')|trim
+    }) %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block form_widget_simple %}
+    {% set widget_type = type|default('text') %}
+
+    {% if widget_type != 'hidden' %}
+        {% set attr = attr|merge({
+            class: (attr.class|default('') ~ ' form-control')|trim
+        }) %}
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block textarea_widget %}
+    {% set attr = attr|merge({
+        class: (attr.class|default('') ~ ' form-control')|trim
+    }) %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block choice_widget_collapsed %}
+    {% set attr = attr|merge({
+        class: (attr.class|default('') ~ ' form-control')|trim
+    }) %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block form_help %}
+    {% set help_attr = help_attr|merge({
+        class: (help_attr.class|default('') ~ ' form-help')|trim
+    }) %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block form_errors %}
+    {% if errors|length > 0 %}
+        <ul class="form-errors" role="alert">
+            {% for error in errors %}
+                <li id="{{ id }}_error{{ loop.index }}">
+                    {{ error.message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block submit_widget %}
+    {% set attr = attr|merge({
+        class: (attr.class|default('') ~ ' button button--primary')|trim
+    }) %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block button_row %}
+    {% set row_attr = row_attr|merge({
+        class: (row_attr.class|default('') ~ ' form-actions')|trim
+    }) %}
+
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}
+
+{#
+Fragment extrêmement spécifique :
+uniquement relatedTicket dans CreateTicketType.
+#}
+{% block _create_ticket_relatedTicket_widget %}
+    <div class="ticket-reference-widget">
+        {{ block('form_widget_simple') }}
+    </div>
+{% endblock %}

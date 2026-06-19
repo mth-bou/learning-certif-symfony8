@@ -9,13 +9,14 @@
         body {
             font-family: system-ui, sans-serif;
             margin: 0;
-            background: #f6f7f9;
-            color: #1f2937;
+            background: #0f172a;
+            color: #e5e7eb;
+            color-scheme: dark;
         }
 
         header {
-            background: #111827;
-            color: white;
+            background: #020617;
+            color: #f8fafc;
             padding: 1rem 2rem;
         }
 
@@ -26,7 +27,7 @@
         }
 
         a {
-            color: #2563eb;
+            color: #93c5fd;
             text-decoration: none;
         }
 
@@ -35,8 +36,8 @@
         }
 
         .card {
-            background: white;
-            border: 1px solid #e5e7eb;
+            background: #111827;
+            border: 1px solid #334155;
             border-radius: 8px;
             padding: 1rem;
             margin-bottom: 1rem;
@@ -46,25 +47,101 @@
             display: inline-block;
             padding: 0.15rem 0.5rem;
             border-radius: 999px;
-            background: #e5e7eb;
+            background: #334155;
+            color: #f8fafc;
             font-size: 0.85rem;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
+            background: #111827;
         }
 
         th,
         td {
             padding: 0.75rem;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid #334155;
             text-align: left;
         }
 
         th {
-            background: #f3f4f6;
+            background: #1e293b;
+        }
+
+        .form-field {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 650;
+        }
+
+        .form-label.required::after {
+            color: #fca5a5;
+            content: " *";
+        }
+
+        .form-control {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 0.7rem 0.8rem;
+            border: 1px solid #475569;
+            border-radius: 6px;
+            background: #020617;
+            color: inherit;
+            font: inherit;
+        }
+
+        .form-control:focus {
+            border-color: #93c5fd;
+            outline: 3px solid rgba(147, 197, 253, 0.2);
+        }
+
+        .form-field--invalid .form-control,
+        .form-control[aria-invalid="true"] {
+            border-color: #fca5a5;
+        }
+
+        .form-help {
+            margin-top: 0.35rem;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .form-errors {
+            margin: 0.4rem 0 0;
+            padding-left: 1.25rem;
+            color: #fca5a5;
+        }
+
+        .form-actions {
+            margin-top: 1.5rem;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.7rem 1rem;
+            border: 0;
+            border-radius: 6px;
+            font: inherit;
+            font-weight: 650;
+            cursor: pointer;
+        }
+
+        .button--primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .button--primary:hover {
+            background: #1d4ed8;
+        }
+
+        .ticket-reference-widget {
+            max-width: 18rem;
         }
     </style>
 </head>
