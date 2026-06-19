@@ -19,5 +19,6 @@ services:
     App\:
         resource: '../src/'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    # Attaché manuellement au dispatcher du FormBuilder. Il ne doit pas être auto-taggé kernel.event_subscriber.
+    App\Form\SupportDesk\EventSubscriber\CreateTicketFormSubscriber:
+        autoconfigure: false

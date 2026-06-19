@@ -5,6 +5,7 @@ namespace App\Controller\SupportDesk;
 use App\Form\SupportDesk\CreateTicketType;
 use App\SupportDesk\Application\Ticket\CreateTicketInput;
 use App\SupportDesk\Application\Ticket\TicketProvider;
+use App\SupportDesk\Model\TicketPriority;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
