@@ -39,6 +39,23 @@
                     Aucun
                 {% endif %}
             </dd>
+
+            <dt>Pièce jointe</dt>
+            <dd>
+                {% if ticket.attachment %}
+                    {{ ticket.attachment.originalName }}
+
+                    <small>
+                        -
+                        {{ (ticket.attachment.size / 1000)|number_format(1, ',', ' ') }}
+                        Ko
+                        -
+                        {{ ticket.attachment.mediaType ?? 'type inconnu' }}
+                    </small>
+                {% else %}
+                    Aucune
+                {% endif %}
+            </dd>
         </dl>
     </article>
 {% endblock %}

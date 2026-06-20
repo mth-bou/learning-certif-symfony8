@@ -11,6 +11,7 @@ final readonly class Ticket
         public TicketStatus $status,
         public string $description = '',
         public ?string $relatedTicketReference = null,
+        public ?TicketAttachment $attachment = null,
     ) {}
 
     public function toArray(): array
@@ -22,6 +23,7 @@ final readonly class Ticket
             'status' => $this->status->value,
             'description' => $this->description,
             'related_ticket_reference' => $this->relatedTicketReference,
+            'attachment' => $this->attachment?->toArray(),
         ];
     }
 }

@@ -9,6 +9,7 @@ use App\SupportDesk\Model\TicketPriority;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -37,6 +38,14 @@ final class CreateTicketType extends AbstractType
                 'attr' => [
                     'rows' => 8,
                 ]
+            ])
+            ->add('attachment', FileType::class, [
+                'label' => 'Pièce jointe',
+                'required' => false,
+                'help' => 'PDF, TXT, PNG ou JPEG - 5Mo maximum.',
+                'attr' => [
+                    'accept' => '.pdf,.txt,.png,.jpg,.jpeg',
+                ],
             ])
             ->add('priority', EnumType::class, [
                 'class' => TicketPriority::class,

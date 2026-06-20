@@ -3,6 +3,7 @@
 namespace App\SupportDesk\Application\Ticket;
 
 use App\SupportDesk\Model\Ticket;
+use App\SupportDesk\Model\TicketAttachment;
 use App\SupportDesk\Model\TicketStatus;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -37,15 +38,16 @@ final readonly class TicketProvider
         return null;
     }
 
-    public function add(CreateTicketInput $input): Ticket
+    public function add(CreateTicketInput $input, ?TicketAttachment $attachment = null): Ticket
     {
         $ticket = new Ticket(
             reference: $this->nextReference(),
-            title: $input->title,
-            customerEmail: $input->customerEmail,
+            title: (string) $input->title,
+            customerEmail: (string) $input->customerEmail,
             status: TicketStatus::Open,
-            description: $input->description,
+            description: (string) $input->description,
             relatedTicketReference: $input->relatedTicket?->reference,
+            attachment: $attachment,
         );
 
         $session = $this->requestStack->getSession();
@@ -101,6 +103,9 @@ final readonly class TicketProvider
                 status: TicketStatus::from($data['status']),
                 description: $data['description'] ?? '',
                 relatedTicketReference: $data['related_ticket_reference'] ?? null,
+                attachment: is_array($data['attachment'] ?? null)
+                    ? TicketAttachment::fromArray($data['attachment'])
+                    : null,
             ),
             $session->get(self::SESSION_KEY, []),
         );

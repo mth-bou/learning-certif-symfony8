@@ -4,6 +4,7 @@ namespace App\SupportDesk\Application\Ticket;
 
 use App\SupportDesk\Model\Ticket;
 use App\SupportDesk\Model\TicketPriority;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class CreateTicketInput
@@ -36,4 +37,14 @@ final class CreateTicketInput
     public ?TicketPriority $priority = TicketPriority::Normal;
 
     public ?string $escalationReason = null;
+
+    #[Assert\File(
+        maxSize: '5M',
+        filenameMaxLength: 180,
+        maxSizeMessage: 'La pièce jointe ne doit pas dépasser {{ limit }} {{ suffix }}.',
+        filenameTooLongMessage: 'Le nom de la pièce jointe est trop long.',
+        extensions: ['pdf', 'txt', 'png', 'jpg', 'jpeg'],
+        extensionsMessage: 'Formats autorisés : {{ extensions }}.'
+    )]
+    public ?UploadedFile $attachment = null;
 }
